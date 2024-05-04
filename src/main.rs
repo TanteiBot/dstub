@@ -34,19 +34,25 @@ enum Status {
 async fn main() {
 	let args = Args::parse();
 
-	let mut client = Client::builder(&args.token, GatewayIntents::empty()).await.unwrap();
+	let mut client = Client::builder(&args.token, GatewayIntents::empty())
+		.await
+		.unwrap();
+
 	let manager = client.shard_manager.clone();
 
 	tokio::spawn(async move {
 		let status = match args.status_type {
 			Status::Online => OnlineStatus::Online,
 			Status::DoNotDisturb => OnlineStatus::DoNotDisturb,
-			Status::Idle => OnlineStatus::Idle
+			Status::Idle => OnlineStatus::Idle,
 		};
 		sleep(Duration::from_secs(15)).await;
 
 		for shard in manager.lock().await.runners.lock().await.iter_mut() {
-			shard.1.runner_tx.set_presence(Some(Activity::playing(args.status_message.clone())), status);
+			shard
+				.1
+				.runner_tx
+				.set_presence(Some(Activity::playing(args.status_message.clone())), status);
 		}
 	});
 

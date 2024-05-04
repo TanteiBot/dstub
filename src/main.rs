@@ -40,7 +40,7 @@ async fn main() {
        let status = match args.status_type {
            Status::Online => OnlineStatus::Online,
            Status::DoNotDisturb => OnlineStatus::DoNotDisturb,
-           ::Idle => OnlineStatus::Idle
+           Status::Idle => OnlineStatus::Idle
        };
        sleep(Duration::from_secs(15)).await;
 

@@ -48,11 +48,11 @@ async fn main() {
 		};
 		sleep(Duration::from_secs(15)).await;
 
-		for shard in manager.lock().await.runners.lock().await.iter_mut() {
+		for shard in manager.runners.lock().await.iter_mut() {
 			shard
 				.1
 				.runner_tx
-				.set_presence(Some(Activity::playing(args.status_message.clone())), status);
+				.set_presence(Some(ActivityData::playing(args.status_message.clone())), status);
 		}
 	});
 

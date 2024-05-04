@@ -14,6 +14,6 @@ panic = "abort"
 incremental = true
 
 [dependencies]
-tokio = { version = "*", features = ["macros", "rt-multi-thread", "time"] }
-serenity = { version = "*", default-features = false, features = ["client", "gateway", "rustls_backend", "model"] }
-clap = { version = "*", features = ["derive"] }
+tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread", "time"] }
+serenity = { default-features = false, features = ["http", "model", "utils", "rustls_backend", "client", "gateway"], version = "0.12.1" }
+clap = { version = "4.5.4", features = ["derive"] }
